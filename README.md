@@ -1,10 +1,12 @@
 ## Website Performance Optimization portfolio project
 
-Pptimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+Optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
-### Orginal site 
-https://dsenze.github.io//weboptimization
-### Tweaked solution: 
+This repo includes optimized performance of : https://github.com/udacity/frontend-nanodegree-mobile-portfolio
+
+### Orginal site hosted here 
+https://dsenze.github.io/weboptimization
+### Tweaked solution hosted here
 https://dsenze.github.io/weboptmization_tweaked
 
 ## Solutions
