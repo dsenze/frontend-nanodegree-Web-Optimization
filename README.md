@@ -4,14 +4,16 @@ Optimize this online portfolio for speed! In particular, optimize the critical r
 
 This repo includes optimized performance of : https://github.com/udacity/frontend-nanodegree-mobile-portfolio
 
+
+# Solution
+
 ### Orginal site hosted here 
-https://dsenze.github.io/weboptimization
+http://dsenze-optimization-orginal.azurewebsites.net/
 ### Tweaked solution hosted here
-https://dsenze.github.io/weboptmization_tweaked
+http://dsenze-optimization-solution.azurewebsites.net/
 
-## Solutions
-#### Part 1: Optimize PageSpeed Insights score for index.html
 
+#### Part 1: Optimize PageSpeed Insights score above 90 for index.html
 
 #### Part 2: Optimize Frames per Second in pizza.html
 
