@@ -23,9 +23,9 @@ http://dsenze-optimization-solution.azurewebsites.net/
 
 
 #### Part 1: Optimize PageSpeed Insights score above 90 for index.html
-##### Page insight Result after tweak
-###### 93/100 (mobile)
-###### 95/100 (desktop)
+##### Page Insight Result after tweak
+###### **93/100** (mobile)
+###### **95/100** (desktop)
 
 
 #### Part 2: Optimize Frames per Second in pizza.html
