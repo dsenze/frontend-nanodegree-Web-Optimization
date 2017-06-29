@@ -23,11 +23,18 @@ http://dsenze-optimization-solution.azurewebsites.net/
 
 
 #### Part 1: Optimize PageSpeed Insights score above 90 for index.html
+
+
+* Inlined style.css to head (ok if smaller than 14KB)
+* added media="print" to print.css to only be used if in print mode.
+* Scripts blocking rendering pattern - Moved .js script to end of body and added async to analytics.js. 
+* downloaded all external pictures. compresses and resized all of them to get faster download. changed href to local images.
+* changed google fonts to run async reference https://www.lockedowndesign.com/load-google-fonts-asynchronously-for-page-speed/
+* finally i compressed, minimized all html, js and css files with grunt.
+
 ##### Page Insight Result after tweak
 ###### **93/100** (mobile)
 ###### **95/100** (desktop)
-
-* Inlined style.css to html document and added media="print" for print.css.
 ##
 ```
     <meta charset="utf-8">
