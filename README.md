@@ -27,6 +27,8 @@ http://dsenze-optimization-solution.azurewebsites.net/
 ###### **93/100** (mobile)
 ###### **95/100** (desktop)
 
+## Inlined style.css to html document and added media="print" for print.css.
+##
 ```
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
