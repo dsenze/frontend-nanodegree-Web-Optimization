@@ -4,8 +4,6 @@ Optimize this online portfolio for speed! In particular, optimize the critical r
 
 This repo includes optimized performance of : https://github.com/udacity/frontend-nanodegree-mobile-portfolio
 
-### Installation of solution
-
 # Installation
 **pre requirements:** node.js and grunt. view more at: https://gruntjs.com/getting-started
 
@@ -15,7 +13,6 @@ This repo includes optimized performance of : https://github.com/udacity/fronten
 ### 3. after installation succuss. run command : **grunt**.
 grunt will run predefined automation task and verifies JShint runs without errors. If no error occurs. Grunt minimize css and js and removes all comments and saves the production ready code in \dist.
 ### 5. start application. dist/index.html.
-## Enjoy!
 
 # Solution
 
