@@ -27,6 +27,13 @@ http://dsenze-optimization-solution.azurewebsites.net/
 ###### **93/100** (mobile)
 ###### **95/100** (desktop)
 
+```
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" FILL ME IN ">
+    <meta name="author" content=" FILL ME IN ">
+    <title>Cameron Pittman: Portfolio</title>
+```
 
 #### Part 2: Optimize Frames per Second in pizza.html
 
