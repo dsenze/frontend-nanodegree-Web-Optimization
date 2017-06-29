@@ -1,0 +1,12 @@
+jsDistDir: dist/js/
+jsSrcDir: src/js/
+jsViewSrcDir: src/views/js/
+jsViewDistDir: dist/views/js/
+cssDistDir: dist/css/
+cssSrcDir: src/css/
+cssViewDistDir: dist/views/css/
+cssViewSrcDir: src/views/css/
+imgSrcDir: src/img/
+imgDistDir: dist/img/
+imgViewSrcDir: src/views/images/
+imgViewDistDir: dist/views/images/
