@@ -36,18 +36,203 @@ http://dsenze-optimization-solution.azurewebsites.net/
 ###### **93/100** (mobile)
 ###### **95/100** (desktop)
 ##
-```
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content=" FILL ME IN ">
-    <meta name="author" content=" FILL ME IN ">
-    <title>Cameron Pittman: Portfolio</title>
-```
+
 
 #### Part 2: Optimize Frames per Second in pizza.html
 
-#### Part 3: Time to resize pizzas is less than 5 ms using the pizza size slider on the views/pizza.html page. 
 
+### updatePositions()
+
+Orginal
+```
+function updatePositions() {
+  frame++;
+  window.performance.mark("mark_start_frame");
+
+  var items = document.querySelectorAll('.mover');
+  for (var i = 0; i < items.length; i++) {
+    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  }
+```
+  
+Performance
+* removed unecessary document.queryselector (using global variable items instead).
+* document.body.scrollTop only need to be called once, move it outside for loop to improve performance. Also added support for firefox, chrome and ie when selecting scrollTop.
+* added update of ticking variable. used for requestAnmimation function.
+
+*Comment: (Tried to use some hacks ( transform: translateX() ) however was not that big improvement so good is enough. read about this in https://github.com/udacity/fend-office-hours/tree/master/Web%20Optimization/Effective%20Optimizations%20for%2060%20FPS)
+```
+function updatePositions() {
+    ticking = false; 
+    frame++;
+    window.performance.mark("mark_start_frame");
+    var top = (document.documentElement && document.documentElement.scrollTop) || 
+        document.body.scrollTop;  //to support IE and firefox browser.
+    for (var i = 0; i < items.length; i++) {
+        var phase = Math.sin((top / 1250) + (i % 5));
+        items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    }
+}
+```
+
+### document.addEventListener('DOMContentLoaded', function()
+
+Orginal
+```
+// Generates the sliding pizzas when the page loads.
+document.addEventListener('DOMContentLoaded', function() {
+  var cols = 8;
+  var s = 256;
+  for (var i = 0; i < 200; i++) {
+    var elem = document.createElement('img');
+    elem.className = 'mover';
+    elem.src = "images/pizza.png";
+    elem.style.height = "100px";
+    elem.style.width = "73.333px";
+    elem.basicLeft = (i % cols) * s;
+    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    document.querySelector("#movingPizzas1").appendChild(elem);
+  }
+```
+
+Performance
+* resized image to fit style.height and style.width and removed style propertys. Also removed width property from CSS .mover class so browser dont have to resize images.
+```
+.mover {
+  position: fixed;
+  /*width: 256px;*/
+  z-index: -1;
+}
+```
+* no need for 200 sliding pizzas, added slidingtotal variable and set total to 40.
+* creating variable to hold movingPizzas1 elements and global variable to store mover elements.
+```
+// Generates the sliding pizzas when the page loads.
+document.addEventListener('DOMContentLoaded', function() {
+    var cols = 8;
+    var s = 256;
+    var slidingtotal = 40; // no need for 200 pizzas. replacing for (var i = 0; i < 200; i++) {
+    var addpizza = document.getElementById('movingPizzas1'); 
+    for (var i = 0; i < slidingtotal; i++) {
+        var elem = document.createElement('img');
+        elem.className = 'mover';
+        //elem.src = "images/pizza.png";
+        elem.src = "img/73.333/pizza.png"; //replacing with a new picture in right diemensions
+        //elem.style.height = "100px";
+        //elem.style.width = "73.333px";
+        elem.basicLeft = (i % cols) * s;
+        elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        //document.querySelector("#movingPizzas1").appendChild(elem);
+        //Comment: querySelector only need to be call once. adding variable addpizza before for loop instead.
+        addpizza.appendChild(elem);
+    }
+    items = addpizza.getElementsByClassName('mover'); //Update global variable, used in other functions.
+    updatePositions();
+});
+```
+
+### requestAnimationFrames()
+Added requestAnimationFrames with debouncing scroll events.
+```
+//debouncing scroll events, thanks to https://www.html5rocks.com/en/tutorials/speed/animations/
+var latestKnownScrollY = 0,
+    ticking = false;
+
+function onScroll() {
+    latestKnownScrollY = window.scrollY;
+    requestTick();
+}
+
+function requestTick() {
+    if (!ticking) {
+        requestAnimationFrame(updatePositions);
+    }
+    ticking = true;
+}
+```
+
+#### Part 3: Time to resize pizzas is less than 5 ms using the pizza size slider on the views/pizza.html page. 
+*1. Compressed and resize Pizza Image.
+
+### changePizzaSizes()
+* changePizzaSizes included alot of unecessary document.queryselector calls.
+* moved dx and newwidth outside for loop (does only have to be called once).
+```
+    // Iterates through pizza elements on the page and changes their widths
+    function changePizzaSizes(size) {
+        var container = document.querySelectorAll(".randomPizzaContainer");
+        var dx = determineDx(container[1], size);
+        var newwidth = (container[1].offsetWidth + dx) + 'px';
+        for (var i = 0; i < container.length; i++) {
+            container[i].style.width = newwidth;
+        }
+        
+        // unecessary document.query in for loop.
+        // for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
+        //     var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
+        //     var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+        //     document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+        // }
+    }
+```
+
+### determineDX()
+* This was called in a loop so document.queryselector was a bottleneck. Changed it to use a globalvariable. However its only called once after changepizzasize fix.
+* function ok when not called in for loop.
+```
+function determineDx (elem, size) {
+    var oldWidth = elem.offsetWidth;
+    var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+    var oldSize = oldWidth / windowWidth;
+
+    // Changes the slider value to a percent width
+    function sizeSwitcher (size) {
+      switch(size) {
+        case "1":
+          return 0.25;
+        case "2":
+          return 0.3333;
+        case "3":
+          return 0.5;
+        default:
+          console.log("bug in sizeSwitcher");
+      }
+    }
+
+    var newSize = sizeSwitcher(size);
+    var dx = (newSize - oldSize) * windowWidth;
+
+    return dx;
+  }
+```
+
+```
+ function determineDx(elem, size) {
+        var oldWidth = elem.offsetWidth;
+        var windowWidth = pizzasDiv.offsetWidth;
+        var oldSize = oldWidth / windowWidth;
+
+        // Changes the slider value to a percent width
+        function sizeSwitcher(size) {
+            switch (size) {
+                case "1":
+                    return 0.25;
+                case "2":
+                    return 0.3333;
+                case "3":
+                    return 0.5;
+                default:
+                    console.log("bug in sizeSwitcher");
+            }
+        }
+
+        var newSize = sizeSwitcher(size);
+        var dx = (newSize - oldSize) * windowWidth;
+
+        return dx;
+    }
+```
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
 * [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
