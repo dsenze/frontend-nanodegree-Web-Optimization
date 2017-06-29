@@ -2,8 +2,10 @@
 
 Pptimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
-Orginal site hosted: https://dsenze.github.io//weboptimization
-Tweaked solution hosted: https://ddsenze.github.io/weboptmization_tweaked
+### Orginal site 
+https://dsenze.github.io//weboptimization
+### Tweaked solution: 
+https://dsenze.github.io/weboptmization_tweaked
 
 ## Solutions
 #### Part 1: Optimize PageSpeed Insights score for index.html
