@@ -32,14 +32,16 @@ form {
 
 .mover {
     position: fixed;
-    /*width: 256px;*/
+    /*width: 256px; unecessary property*/
     z-index: -1;
 }
 
 .randomPizzaContainer {
+    /*replacing element.style property from pizzaelementgenerator*/
     width: 389.961px;
     float: left;
     display: flex;
+    /*replacing element.style property from pizzaelementgenerator*/
     height: 325px;
 }
 
@@ -49,9 +51,15 @@ form {
     clear: both;
 }
 
+
+/*use instead of element.styles*/
+
 .pizzaImgContainer {
     width: 35%;
 }
+
+
+/*use instead of element.styles*/
 
 .pizzaInformation {
     width: 65%
