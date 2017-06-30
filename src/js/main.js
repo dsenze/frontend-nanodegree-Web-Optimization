@@ -391,22 +391,18 @@ var pizzaElementGenerator = function(i) {
 
     pizzaContainer = document.createElement("div");
     pizzaImageContainer = document.createElement("div");
+    pizzaImageContainer.classList.add("pizzaImgContainer");
     pizzaImage = document.createElement("img");
     pizzaDescriptionContainer = document.createElement("div");
+    pizzaDescriptionContainer.classList.add("pizzaInformation");
 
     pizzaContainer.classList.add("randomPizzaContainer");
-    pizzaContainer.style.width = "33.33%";
-    pizzaContainer.style.height = "325px";
     pizzaContainer.id = "pizza" + i; // gives each pizza element a unique id
-    pizzaImageContainer.style.width = "35%";
 
     pizzaImage.src = "img/205/pizza.png";
     pizzaImage.classList.add("img-responsive");
     pizzaImageContainer.appendChild(pizzaImage);
     pizzaContainer.appendChild(pizzaImageContainer);
-
-
-    pizzaDescriptionContainer.style.width = "65%";
 
     pizzaName = document.createElement("h4");
     pizzaName.innerHTML = randomName();
@@ -420,62 +416,68 @@ var pizzaElementGenerator = function(i) {
     return pizzaContainer;
 };
 
+function addStylesheetRules(rules) {
+    var styleEl = document.createElement('style'),
+        styleSheet;
+
+    // Append style element to head
+    document.head.appendChild(styleEl);
+
+    // Grab style sheet
+    styleSheet = styleEl.sheet;
+
+    for (var i = 0, rl = rules.length; i < rl; i++) {
+        var j = 1,
+            rule = rules[i],
+            selector = rules[i][0],
+            propStr = '';
+        // If the second argument of a rule is an array of arrays, correct our variables.
+        if (Object.prototype.toString.call(rule[1][0]) === '[object Array]') {
+            rule = rule[1];
+            j = 0;
+        }
+
+        for (var pl = rule.length; j < pl; j++) {
+            var prop = rule[j];
+            propStr += prop[0] + ':' + prop[1] + (prop[2] ? ' !important' : '') + ';\n';
+        }
+
+        // Insert CSS Rule
+        styleSheet.insertRule(selector + '{' + propStr + '}', styleSheet.cssRules.length);
+    }
+}
+
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
     window.performance.mark("mark_start_resize"); // User Timing API function
+    function changePizzaSizes(size) {
 
-    // Changes the value for the size of the pizza above the slider
-    function changeSliderLabel(size) {
-        switch (size) {
-            case "1":
-                document.querySelector("#pizzaSize").innerHTML = "Small";
-                return;
-            case "2":
-                document.querySelector("#pizzaSize").innerHTML = "Medium";
-                return;
-            case "3":
-                document.querySelector("#pizzaSize").innerHTML = "Large";
-                return;
-            default:
-                console.log("bug in changeSliderLabel");
-        }
-    }
-
-    changeSliderLabel(size);
-
-    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-    function determineDx(elem, size) {
-        var oldWidth = elem.offsetWidth;
-        var windowWidth = pizzasDiv.offsetWidth;
-        var oldSize = oldWidth / windowWidth;
-
-        // Changes the slider value to a percent width
         function sizeSwitcher(size) {
             switch (size) {
                 case "1":
-                    return 0.25;
+                    document.querySelector("#pizzaSize").innerHTML = "Small";
+                    return "292.5px";
                 case "2":
-                    return 0.3333;
+                    document.querySelector("#pizzaSize").innerHTML = "medium";
+                    return "389.961px";
                 case "3":
-                    return 0.5;
+                    document.querySelector("#pizzaSize").innerHTML = "large";
+                    return "585px";
                 default:
                     console.log("bug in sizeSwitcher");
             }
         }
 
         var newSize = sizeSwitcher(size);
-        var dx = (newSize - oldSize) * windowWidth;
 
-        return dx;
-    }
+        addStylesheetRules([
+            ['.randomPizzaContainer', ['width', newSize]]
+        ]);
 
-    // Iterates through pizza elements on the page and changes their widths
-    function changePizzaSizes(size) {
-        var container = document.querySelectorAll(".randomPizzaContainer");
-        var dx = determineDx(container[1], size);
-        var newwidth = (container[1].offsetWidth + dx) + 'px';
-        for (var i = 0; i < container.length; i++) {
-            container[i].style.width = newwidth;
+        var stylesheets = document.styleSheets;
+        // disable old stylesheet if user changed size more than once.
+        if (stylesheets.length >= 4) {
+            stylesheets[stylesheets.length - 2].disabled = true; // disable stylesheet old stylesheet.
         }
     }
 
@@ -491,8 +493,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-    var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 

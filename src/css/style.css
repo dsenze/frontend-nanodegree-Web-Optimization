@@ -34,18 +34,27 @@ form {
     position: fixed;
     /*width: 256px;*/
     z-index: -1;
-    /*will-change: transform;*/
 }
 
 .randomPizzaContainer {
+    width: 389.961px;
     float: left;
     display: flex;
+    height: 325px;
 }
 
 .randomPizzaContainer:after {
     content: "";
     display: table;
     clear: both;
+}
+
+.pizzaImgContainer {
+    width: 35%;
+}
+
+.pizzaInformation {
+    width: 65%
 }
 
 .container {
