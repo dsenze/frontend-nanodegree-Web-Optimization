@@ -153,7 +153,9 @@ function requestTick() {
 
 #### Part 3: Time to resize pizzas is less than 5 ms using the pizza size slider on the views/pizza.html page. 
 
-Main issues in resizing pizzas where the querySelectorAll calls inside the foreach loop. There where alot of recalulation of the picture and the resizePizzas was scope to affect each element. I got a good performance to used remove all querySelectorAll and resize and compress picture. However after some consideration i decided to change the whole logic. Why loop each element when we can just update a CSS class with one call? :)
+Main issues in resizing pizzas where the querySelectorAll calls inside the foreach loop. There where alot of recalulation of the picture and the resizePizzas was scope to affect each element. I got a good performance to just remove all querySelectorAll and resize and compress pizza.png picture. ⋅
+
+However after some consideration i decided to change the whole logic. Why loop each element when we can just update a CSS class with one call? :) 
 
 
 ```
