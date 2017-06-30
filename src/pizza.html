@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <title>Pizza</title>
 </head>
 
 <body>
@@ -42,9 +43,9 @@
                 <picture>
                     <!-- use source media set, to improve performance on mobile devices -->
                     <!-- Images resolution are controlled by grunt task -->
-                    <source media="(max-width: 991px) and (min-width: 441px)" srcset="img\720\pizzeria.jpg" class="img-responsive">
-                    <source media="(max-width: 440px)" srcset="img\380\pizzeria.jpg" class="img-responsive">
-                    <img src="img\380\pizzeria.jpg" alt="pizzeria picture" class="img-responsive">
+                    <source media="(max-width: 991px) and (min-width: 441px)" srcset="img/720/pizzeria.jpg" class="img-responsive">
+                    <source media="(max-width: 440px)" srcset="img/380/pizzeria.jpg" class="img-responsive">
+                    <img src="img/380/pizzeria.jpg" alt="pizzeria picture" class="img-responsive">
                 </picture>
                 <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
             </div>
@@ -108,13 +109,13 @@
                     </div>
                     <div id="pizzaSize" class="col-md-6">Medium</div>
                     <div class="col-md-12">
-                        <input id="sizeSlider" type="range" min="1" max="3" value="2" step="1" onchange="resizePizzas(this.value)"></input>
+                        <input id="sizeSlider" type="range" min="1" max="3" value="2" step="1" onchange="resizePizzas(this.value)">
                     </div>
                 </div>
                 <div id="randomPizzas" class="row">
                     <div id="pizza0" class="randomPizzaContainer">
                         <div style="width:35%">
-                            <img src="img/205/pizza.png" class="img-responsive">
+                            <img src="img/205/pizza.png" alt="pizza image" class="img-responsive">
                         </div>
                         <div style="width:65%">
                             <h4>The Udacity Special</h4>
@@ -131,7 +132,7 @@
                     </div>
                     <div id="pizza1" class="randomPizzaContainer">
                         <div style="width:35%">
-                            <img src="img/205/pizza.png" class="img-responsive">
+                            <img src="img/205/pizza.png" alt="pizza image" class="img-responsive">
                         </div>
                         <div style="width:65%">
                             <h4>The Cameron Special</h4>
@@ -149,7 +150,5 @@
     </div>
     <script type="text/javascript" src="js/main.js"></script>
 </body>
-
-</html>
 
 </html>
