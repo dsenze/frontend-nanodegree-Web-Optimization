@@ -153,10 +153,7 @@ function requestTick() {
 
 #### Part 3: Time to resize pizzas is less than 5 ms using the pizza size slider on the views/pizza.html page. 
 
-Main issues in resizing pizzas where the querySelectorAll calls inside the foreach loop. There where alot of recalulation of the picture and the resizePizzas was scope to affect each element. I got a good performance to just remove all querySelectorAll and resize and compress pizza.png picture. ⋅
-
-However after some consideration i decided to change the whole logic. Why loop each element when we can just update a CSS class with one call? :) 
-
+Main issues in resizing pizzas where the querySelectorAll calls inside the foreach loop. There where alot of recalulation of the picture and the resizePizzas was scope to affect each element. I got a good performance to just remove all querySelectorAll and resize and compress pizza.png picture. 
 
 ```
      for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
@@ -166,12 +163,17 @@ However after some consideration i decided to change the whole logic. Why loop e
          }
   ```
 
-1. Compressed and resize Pizza Image.
+However after some consideration i decided to change the whole logic. Why loop each element when we can just update a CSS class with one call? :) 
+
+
+
+
+**1. Compressed and resize Pizza Image.**
 ```
   // pizzaImage.src = "images/pizza.png";
     pizzaImage.src = "img/205/pizza.png"; //resized and optimized picture
 ```
-2. Changed so that CSS controlls the height and witdth instead of using style properties.
+**2. Changed so that CSS controlls the height and witdth instead of using style properties.**
 
 ```
 .randomPizzaContainer {
@@ -192,7 +194,7 @@ var pizzaElementGenerator = function(i) {
     // pizzaImageContainer.style.width="35%"; //replaced by css
 
 ```
-3. Added 2 more CSS class to control styles for randomPizzaContainer Childs.
+**3. Added two more CSS classes to control styles for randomPizzaContainer Childs.**
 ```
 .pizzaImgContainer {
     width: 35%;
@@ -205,7 +207,7 @@ var pizzaElementGenerator = function(i) {
     width: 65%
 }
 ```
-4. Added a new function to add CSS rules to CSS stylesheet.
+**4. Added a new function to add CSS rules to CSS stylesheet.**
 ```
 function addStylesheetRules(rules) {
     var styleEl = document.createElement('style'),
@@ -238,7 +240,7 @@ function addStylesheetRules(rules) {
     }
 }
 ```
-5. Deleted all uneccessary code that loops element and call document.queryselectors
+**5. Deleted all uneccessary code that where used to loop each element with faulty document.queryselectors and set style property invidually to just update .randomPizzaContainer with an attribute**
 
 ```
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
