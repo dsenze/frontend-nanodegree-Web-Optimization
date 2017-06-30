@@ -13,6 +13,10 @@ This repo includes optimized performance of : https://github.com/udacity/fronten
 ### 3. after installation succuss. run command : **grunt**.
 grunt will run predefined automation task and verifies JShint runs without errors. If no error occurs. Grunt minimize css and js and removes all comments and saves the production ready code in \dist.
 ### 5. start application. dist/index.html.
+# Performance Improvements
+The performance improvement i did in this project.
+
+![Alt text](/performance_metric.png?raw=true "Performance Improvements")
 
 # Solution
 
